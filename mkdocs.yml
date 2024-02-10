@@ -1,0 +1,14 @@
+site_name: Padmini Systems
+nav:
+  - Home: index.md
+  - Why Ansible: ansible.md
+theme:
+  name: material
+  plugins:
+    - blog:
+        authors_profiles: true  
+
+extra:
+  social:
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:contact@kubejet.com
