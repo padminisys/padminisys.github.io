@@ -32,6 +32,7 @@ Explore the limitless potential of our open-source product offerings:
 - **Redis**
 - **Jenkins**
 - **Argo CD**
+- **Argo workflow**
 - **RabbitMQ**
 - **Kafka**
 - **ELK (Elasticsearch, Logstash, Kibana)**
