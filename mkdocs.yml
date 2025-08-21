@@ -2,6 +2,7 @@ site_name: Padmini Systems
 nav:
   - Home: index.md
   - Why Ansible: ansible.md
+  - Ansible Development Standards: ansible-dev-standards.md
 theme:
   name: material
   plugins:
