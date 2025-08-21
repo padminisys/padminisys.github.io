@@ -1,3 +1,9 @@
+# Ansible Development Standards
+
+> **📚 New to Ansible development?** Check out our comprehensive [Getting Started Guide](ansible-getting-started.md) for step-by-step instructions on setting up your development environment and creating your first collection.
+
+---
+
 ### Coding Standards
 
 1. Do not hardcode any input values directly in the playbook.
