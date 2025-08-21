@@ -1,0 +1,1297 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../ansible/">
+      
+      
+        <link rel="next" href="../ansible-dev-standards/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>Ansible Getting Started - Padmini Systems</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ansible-development-getting-started-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Padmini Systems" class="md-header__button md-logo" aria-label="Padmini Systems" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Padmini Systems
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ansible Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Padmini Systems" class="md-nav__button md-logo" aria-label="Padmini Systems" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Padmini Systems
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why Ansible
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Ansible Getting Started
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ansible Getting Started
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-development-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Development Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Development Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-initial-setup-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Initial Setup: Clone Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-development-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Development Environment Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-scaffold-ansible-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Scaffold Ansible Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-create-roles-and-example-playbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Create Roles and Example Playbooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Create Roles and Example Playbooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-kubernetes_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create kubernetes_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-cilium_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create cilium_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-worker_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create worker_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-example-playbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Example Playbooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-required-metadata-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Required Metadata Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Required Metadata Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collection-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collection Metadata
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible-dev-standards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ansible Development Standards
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-development-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Development Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Development Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-initial-setup-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      0. Initial Setup: Clone Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-development-environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Development Environment Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-scaffold-ansible-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Scaffold Ansible Collection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-create-roles-and-example-playbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Create Roles and Example Playbooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Create Roles and Example Playbooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-kubernetes_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create kubernetes_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-cilium_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create cilium_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-worker_setup-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create worker_setup Role
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-example-playbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Example Playbooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-required-metadata-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Required Metadata Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Required Metadata Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collection-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Collection Metadata
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ansible-development-getting-started-guide">Ansible Development Getting Started Guide</h1>
+<p>This guide provides step-by-step instructions for developing Ansible collections with Padmini Systems. Follow these commands to set up your development environment and create a complete Ansible collection.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Git configured with SSH access to GitHub</li>
+<li>Python 3.8+ installed</li>
+<li>Basic understanding of Ansible concepts</li>
+</ul>
+<h2 id="step-by-step-development-process">Step-by-Step Development Process</h2>
+<h3 id="0-initial-setup-clone-repository">0. Initial Setup: Clone Repository</h3>
+<pre><code class="language-bash"># Clone the empty GitHub repository
+git clone git@github.com:padminisys/kubernetes.git
+cd kubernetes
+</code></pre>
+<h3 id="1-development-environment-setup">1. Development Environment Setup</h3>
+<pre><code class="language-bash"># Create and activate Python virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Upgrade pip and install required tools
+python -m pip install --upgrade pip
+pip install &quot;ansible-core&gt;=2.16&quot; ansible-dev-tools ansible-lint
+</code></pre>
+<h3 id="2-scaffold-ansible-collection">2. Scaffold Ansible Collection</h3>
+<pre><code class="language-bash"># Initialize the collection structure
+ansible-galaxy collection init padminisys.kubernetes --init-path .
+
+# Move collection files to root and clean up
+shopt -s dotglob &amp;&amp; mv padminisys/kubernetes/* . &amp;&amp; rm -rf padminisys
+</code></pre>
+<h3 id="3-create-roles-and-example-playbooks">3. Create Roles and Example Playbooks</h3>
+<h4 id="create-kubernetes_setup-role">Create kubernetes_setup Role</h4>
+<pre><code class="language-bash"># Initialize the kubernetes_setup role
+ansible-galaxy role init roles/kubernetes_setup
+
+# Create the main tasks file
+cat &gt; roles/kubernetes_setup/tasks/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+- name: Setup Kubernetes cluster
+  ansible.builtin.debug:
+    msg: &quot;Setting up Kubernetes cluster for {{ k8s_cluster_name | default('default-cluster') }}&quot;
+
+- name: Install Kubernetes packages
+  ansible.builtin.debug:
+    msg: &quot;Installing Kubernetes version {{ k8s_version | default('1.28') }}&quot;
+
+- name: Configure Kubernetes master node
+  ansible.builtin.debug:
+    msg: &quot;Configuring master node with {{ k8s_pod_network_cidr | default('10.244.0.0/16') }}&quot;
+YML
+
+# Create role metadata
+cat &gt; roles/kubernetes_setup/meta/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+galaxy_info:
+  author: Padminisys Team
+  description: Kubernetes cluster setup and configuration
+  company: Padmini Systems
+  license: MIT
+  min_ansible_version: &quot;2.16&quot;
+  platforms:
+    - name: Debian
+      versions: [&quot;all&quot;]
+    - name: EL
+      versions: [&quot;all&quot;]
+  galaxy_tags: [kubernetes, k8s, cluster, setup]
+dependencies: []
+YML
+</code></pre>
+<h4 id="create-cilium_setup-role">Create cilium_setup Role</h4>
+<pre><code class="language-bash"># Initialize the cilium_setup role
+ansible-galaxy role init roles/cilium_setup
+
+# Create the main tasks file
+cat &gt; roles/cilium_setup/tasks/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+- name: Setup Cilium CNI
+  ansible.builtin.debug:
+    msg: &quot;Installing Cilium CNI version {{ cilium_version | default('1.14') }}&quot;
+
+- name: Configure Cilium networking
+  ansible.builtin.debug:
+    msg: &quot;Configuring Cilium with cluster pool CIDR {{ cilium_cluster_pool_cidr | default('10.0.0.0/8') }}&quot;
+
+- name: Enable Cilium features
+  ansible.builtin.debug:
+    msg: &quot;Enabling Cilium features: {{ cilium_features | default(['hubble', 'encryption']) | join(', ') }}&quot;
+YML
+
+# Create role metadata
+cat &gt; roles/cilium_setup/meta/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+galaxy_info:
+  author: Padminisys Team
+  description: Cilium CNI setup and configuration for Kubernetes
+  company: Padmini Systems
+  license: MIT
+  min_ansible_version: &quot;2.16&quot;
+  platforms:
+    - name: Debian
+      versions: [&quot;all&quot;]
+    - name: EL
+      versions: [&quot;all&quot;]
+  galaxy_tags: [cilium, cni, networking, kubernetes]
+dependencies:
+  - role: kubernetes_setup
+YML
+</code></pre>
+<h4 id="create-worker_setup-role">Create worker_setup Role</h4>
+<pre><code class="language-bash"># Initialize the worker_setup role
+ansible-galaxy role init roles/worker_setup
+
+# Create the main tasks file
+cat &gt; roles/worker_setup/tasks/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+- name: Setup Kubernetes worker nodes
+  ansible.builtin.debug:
+    msg: &quot;Setting up worker node {{ inventory_hostname }}&quot;
+
+- name: Join worker to cluster
+  ansible.builtin.debug:
+    msg: &quot;Joining worker to cluster {{ k8s_cluster_name | default('default-cluster') }}&quot;
+
+- name: Configure worker node resources
+  ansible.builtin.debug:
+    msg: &quot;Configuring worker with {{ worker_cpu_limit | default('4') }} CPUs and {{ worker_memory_limit | default('8Gi') }} memory&quot;
+YML
+
+# Create role metadata
+cat &gt; roles/worker_setup/meta/main.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+galaxy_info:
+  author: Padminisys Team
+  description: Kubernetes worker node setup and configuration
+  company: Padmini Systems
+  license: MIT
+  min_ansible_version: &quot;2.16&quot;
+  platforms:
+    - name: Debian
+      versions: [&quot;all&quot;]
+    - name: EL
+      versions: [&quot;all&quot;]
+  galaxy_tags: [kubernetes, worker, node, setup]
+dependencies:
+  - role: kubernetes_setup
+YML
+</code></pre>
+<h4 id="create-example-playbooks">Create Example Playbooks</h4>
+<pre><code class="language-bash"># Create examples directory
+mkdir -p examples
+
+# Create comprehensive example playbook
+cat &gt; examples/kubernetes_cluster.yml &lt;&lt;'YML'
+---
+- name: Setup complete Kubernetes cluster
+  hosts: k8s_masters
+  gather_facts: true
+  collections: [padminisys.kubernetes]
+  roles:
+    - role: kubernetes_setup
+      vars:
+        k8s_cluster_name: &quot;production-cluster&quot;
+        k8s_version: &quot;1.28&quot;
+        k8s_pod_network_cidr: &quot;10.244.0.0/16&quot;
+    - role: cilium_setup
+      vars:
+        cilium_version: &quot;1.14&quot;
+        cilium_cluster_pool_cidr: &quot;10.0.0.0/8&quot;
+        cilium_features: [&quot;hubble&quot;, &quot;encryption&quot;, &quot;l7-proxy&quot;]
+
+- name: Setup worker nodes
+  hosts: k8s_workers
+  gather_facts: true
+  collections: [padminisys.kubernetes]
+  roles:
+    - role: worker_setup
+      vars:
+        k8s_cluster_name: &quot;production-cluster&quot;
+        worker_cpu_limit: &quot;8&quot;
+        worker_memory_limit: &quot;16Gi&quot;
+YML
+
+# Create individual role examples
+cat &gt; examples/kubernetes_setup.yml &lt;&lt;'YML'
+---
+- name: Example - Kubernetes Setup
+  hosts: localhost
+  gather_facts: false
+  collections: [padminisys.kubernetes]
+  roles:
+    - role: kubernetes_setup
+      vars:
+        k8s_cluster_name: &quot;dev-cluster&quot;
+        k8s_version: &quot;1.28&quot;
+        k8s_pod_network_cidr: &quot;10.244.0.0/16&quot;
+YML
+
+cat &gt; examples/cilium_setup.yml &lt;&lt;'YML'
+---
+- name: Example - Cilium Setup
+  hosts: localhost
+  gather_facts: false
+  collections: [padminisys.kubernetes]
+  roles:
+    - role: cilium_setup
+      vars:
+        cilium_version: &quot;1.14&quot;
+        cilium_cluster_pool_cidr: &quot;10.0.0.0/8&quot;
+        cilium_features: [&quot;hubble&quot;, &quot;encryption&quot;]
+YML
+
+cat &gt; examples/worker_setup.yml &lt;&lt;'YML'
+---
+- name: Example - Worker Setup
+  hosts: localhost
+  gather_facts: false
+  collections: [padminisys.kubernetes]
+  roles:
+    - role: worker_setup
+      vars:
+        k8s_cluster_name: &quot;dev-cluster&quot;
+        worker_cpu_limit: &quot;4&quot;
+        worker_memory_limit: &quot;8Gi&quot;
+YML
+</code></pre>
+<h3 id="4-required-metadata-files">4. Required Metadata Files</h3>
+<h4 id="collection-metadata">Collection Metadata</h4>
+<pre><code class="language-bash"># Create galaxy.yml for collection metadata
+cat &gt; galaxy.yml &lt;&lt;'YML'
+namespace: padminisys
+name: kubernetes
+version: 1.0.0
+readme: README.md
+authors: [Padminisys Team]
+description: &quot;Complete Kubernetes cluster setup and management collection with Cilium CNI.&quot;
+license: MIT
+tags: [kubernetes, k8s, cilium, cni, cluster, setup]
+repository: &quot;https://github.com/padminisys/kubernetes&quot;
+issues: &quot;https://github.com/padminisys/kubernetes/issues&quot;
+build_ignore:
+  - .git
+  - .github
+  - .venv
+  - __pycache__
+  - &quot;*.tar.gz&quot;
+  - &quot;*.zip&quot;
+  - &quot;.vscode&quot;
+  - docs/
+  - molecule/
+  - tests/
+YML
+
+# Create runtime metadata
+mkdir -p meta
+cat &gt; meta/runtime.yml &lt;&lt;'YML'
+# SPDX-License-Identifier: MIT-0
+---
+requires_ansible: &quot;&gt;=2.16.0&quot;
+YML
+</code></pre>
+<h4 id="documentation">Documentation</h4>
+<pre><code class="language-bash"># Create comprehensive README
+cat &gt; README.md &lt;&lt;'MD'
+# padminisys.kubernetes
+
+Complete Kubernetes cluster setup and management collection with Cilium CNI support.
+
+## Description
+
+This Ansible collection provides comprehensive automation for setting up and managing Kubernetes clusters with the following components:
+
+- **kubernetes_setup**: Core Kubernetes cluster initialization and configuration
+- **cilium_setup**: Cilium CNI installation and configuration with advanced networking features
+- **worker_setup**: Worker node joining and resource configuration
+
+## Roles
+
+### kubernetes_setup
+Sets up the Kubernetes control plane and core components.
+
+**Variables:**
+- `k8s_cluster_name`: Name of the Kubernetes cluster (default: &quot;default-cluster&quot;)
+- `k8s_version`: Kubernetes version to install (default: &quot;1.28&quot;)
+- `k8s_pod_network_cidr`: Pod network CIDR (default: &quot;10.244.0.0/16&quot;)
+
+### cilium_setup
+Installs and configures Cilium CNI with advanced networking features.
+
+**Variables:**
+- `cilium_version`: Cilium version to install (default: &quot;1.14&quot;)
+- `cilium_cluster_pool_cidr`: Cluster pool CIDR (default: &quot;10.0.0.0/8&quot;)
+- `cilium_features`: List of features to enable (default: [&quot;hubble&quot;, &quot;encryption&quot;])
+
+### worker_setup
+Configures and joins worker nodes to the Kubernetes cluster.
+
+**Variables:**
+- `k8s_cluster_name`: Name of the cluster to join (default: &quot;default-cluster&quot;)
+- `worker_cpu_limit`: CPU limit for worker node (default: &quot;4&quot;)
+- `worker_memory_limit`: Memory limit for worker node (default: &quot;8Gi&quot;)
+
+## Example Usage
+
+```yaml
+- name: Setup complete Kubernetes cluster
+  hosts: k8s_masters
+  collections: [padminisys.kubernetes]
+  roles:
+    - kubernetes_setup
+    - cilium_setup
+
+- name: Setup worker nodes
+  hosts: k8s_workers
+  collections: [padminisys.kubernetes]
+  roles:
+    - worker_setup
+</code></pre>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Ansible &gt;= 2.16</li>
+<li>Python &gt;= 3.8</li>
+<li>Target systems: Debian/Ubuntu or RHEL/CentOS</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-bash">ansible-galaxy collection install padminisys.kubernetes
+</code></pre>
+<h2 id="license">License</h2>
+<p>MIT
+MD</p>
+<h1 id="create-ansible-lint-configuration">Create ansible-lint configuration</h1>
+<p>cat &gt; .ansible-lint &lt;&lt;'YML'
+skip_list:
+  - yaml[line-length]
+  - fqcn-builtins
+  - name[casing]
+YML</p>
+<pre><code>
+### 5. Quality Assurance and Build
+
+```bash
+# Run linting
+ansible-lint
+
+# Build the collection
+ansible-galaxy collection build
+
+# Verify build contents
+ls -lh padminisys-kubernetes-*.tar.gz
+tar -tzf padminisys-kubernetes-*.tar.gz | grep 'meta/runtime.yml'
+</code></pre>
+<h3 id="6-local-testing">6. Local Testing</h3>
+<h4 id="install-and-test-collection">Install and Test Collection</h4>
+<pre><code class="language-bash"># Install the built collection locally
+ansible-galaxy collection install padminisys-kubernetes-*.tar.gz --force
+
+# Test individual roles
+ansible-playbook examples/kubernetes_setup.yml -i localhost, -c local
+ansible-playbook examples/cilium_setup.yml -i localhost, -c local
+ansible-playbook examples/worker_setup.yml -i localhost, -c local
+
+# Test complete cluster setup
+ansible-playbook examples/kubernetes_cluster.yml -i localhost, -c local
+</code></pre>
+<h4 id="alternative-development-mode-no-installation-required">Alternative Development Mode (No Installation Required)</h4>
+<pre><code class="language-bash"># Set collection path for development
+export ANSIBLE_COLLECTIONS_PATHS=&quot;$(pwd):$HOME/.ansible/collections:/usr/share/ansible/collections&quot;
+
+# Run playbooks directly
+ansible-playbook examples/kubernetes_cluster.yml -i localhost, -c local
+</code></pre>
+<h3 id="7-publishing-to-ansible-galaxy">7. Publishing to Ansible Galaxy</h3>
+<h4 id="manual-publishing-one-time">Manual Publishing (One-time)</h4>
+<pre><code class="language-bash"># Create API token in Ansible Galaxy (https://galaxy.ansible.com/me/preferences)
+# NEVER commit the token to version control
+export GALAXY_API_KEY='&lt;your_galaxy_api_token&gt;'
+
+# Publish to Galaxy
+ansible-galaxy collection publish padminisys-kubernetes-*.tar.gz --api-key &quot;$GALAXY_API_KEY&quot;
+</code></pre>
+<h3 id="8-automated-cicd-with-github-actions">8. Automated CI/CD with GitHub Actions</h3>
+<pre><code class="language-bash"># Create GitHub Actions workflow
+mkdir -p .github/workflows
+cat &gt; .github/workflows/release.yml &lt;&lt;'YML'
+name: Build &amp; Publish Kubernetes Collection
+on:
+  push:
+    tags: ['v*.*.*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install &quot;ansible-core&gt;=2.16&quot; ansible-dev-tools ansible-lint
+
+      - name: Run ansible-lint
+        run: ansible-lint
+
+      - name: Build collection
+        run: ansible-galaxy collection build
+
+      - name: Test collection locally
+        run: |
+          ansible-galaxy collection install padminisys-kubernetes-*.tar.gz --force
+          ansible-playbook examples/kubernetes_setup.yml -i localhost, -c local
+
+  publish:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install &quot;ansible-core&gt;=2.16&quot; ansible-dev-tools
+
+      - name: Build collection
+        run: ansible-galaxy collection build
+
+      - name: Publish to Galaxy
+        env:
+          GALAXY_API_KEY: ${{ secrets.GALAXY_API_KEY }}
+        run: |
+          TARBALL=$(ls -1 *.tar.gz | head -n1)
+          ansible-galaxy collection publish &quot;$TARBALL&quot; --api-key &quot;$GALAXY_API_KEY&quot;
+YML
+</code></pre>
+<p><strong>Important:</strong> Add your Galaxy API token as a GitHub Actions secret named <code>GALAXY_API_KEY</code> in your repository settings.</p>
+<h3 id="9-version-control-and-release">9. Version Control and Release</h3>
+<pre><code class="language-bash"># Add all files to git
+git add .
+
+# Commit changes
+git commit -m &quot;feat: scaffold padminisys.kubernetes collection with k8s, cilium, and worker roles&quot;
+
+# Push to main branch
+git push origin main
+
+# Create and push release tag
+git tag v1.0.0
+git push origin v1.0.0
+</code></pre>
+<h3 id="10-install-from-ansible-galaxy-after-publishing">10. Install from Ansible Galaxy (After Publishing)</h3>
+<pre><code class="language-bash"># Install from Galaxy
+ansible-galaxy collection install padminisys.kubernetes
+
+# Use in your playbooks
+ansible-playbook ~/.ansible/collections/ansible_collections/padminisys/kubernetes/examples/kubernetes_cluster.yml -i localhost, -c local
+</code></pre>
+<h3 id="11-advanced-setup-optional">11. Advanced Setup (Optional)</h3>
+<h4 id="requirements-files-for-awx-integration">Requirements Files for AWX Integration</h4>
+<pre><code class="language-bash"># Create collection requirements for AWX
+cat &gt; requirements.yml &lt;&lt;'YML'
+collections:
+  - name: padminisys.kubernetes
+    version: '&gt;=1.0.0'
+  - name: kubernetes.core
+    version: '&gt;=2.4.0'
+  - name: community.general
+    version: '&gt;=7.0.0'
+YML
+
+# Create Python requirements
+cat &gt; requirements.txt &lt;&lt;'YML'
+ansible-core&gt;=2.16
+kubernetes&gt;=24.2.0
+PyYAML&gt;=6.0
+jinja2&gt;=3.1.0
+YML
+</code></pre>
+<h4 id="execution-environment-for-awx">Execution Environment for AWX</h4>
+<pre><code class="language-bash"># Install ansible-builder
+pip install ansible-builder
+
+# Create execution environment definition
+cat &gt; execution-environment.yml &lt;&lt;'YML'
+version: 3
+dependencies:
+  galaxy: requirements.yml
+  python: requirements.txt
+images:
+  base_image:
+    name: quay.io/ansible/ansible-runner:latest
+additional_build_steps:
+  prepend: |
+    RUN pip3 install --upgrade pip setuptools
+  append: |
+    RUN ansible-galaxy collection list
+YML
+
+# Build execution environment
+ansible-builder build -t ghcr.io/padminisys/ee_kubernetes:1.0.0
+
+# Push to registry (requires authentication)
+# docker login ghcr.io
+# docker push ghcr.io/padminisys/ee_kubernetes:1.0.0
+</code></pre>
+<h2 id="development-best-practices">Development Best Practices</h2>
+<ol>
+<li><strong>Follow the coding standards</strong> outlined in our <a href="../ansible-dev-standards/">development standards</a></li>
+<li><strong>Test thoroughly</strong> - Always test your roles locally before publishing</li>
+<li><strong>Version properly</strong> - Use semantic versioning for releases</li>
+<li><strong>Document everything</strong> - Keep README files updated with examples</li>
+<li><strong>Use linting</strong> - Run <code>ansible-lint</code> before every commit</li>
+<li><strong>Modular design</strong> - Keep roles focused on single responsibilities</li>
+<li><strong>Variable naming</strong> - Use consistent, descriptive variable names</li>
+<li><strong>Error handling</strong> - Include proper error handling and validation</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li><strong>Collection not found</strong>: Ensure <code>ANSIBLE_COLLECTIONS_PATHS</code> is set correctly</li>
+<li><strong>Linting errors</strong>: Run <code>ansible-lint --fix</code> to auto-fix common issues</li>
+<li><strong>Build failures</strong>: Check <code>galaxy.yml</code> syntax and required files</li>
+<li><strong>Import errors</strong>: Verify all dependencies are listed in <code>meta/runtime.yml</code></li>
+</ol>
+<h3 id="getting-help">Getting Help</h3>
+<ul>
+<li>Check our <a href="../ansible-dev-standards/">development standards</a> for coding guidelines</li>
+<li>Review example playbooks in the <code>examples/</code> directory</li>
+<li>Open issues on the GitHub repository for bugs or feature requests</li>
+</ul>
+<hr />
+<p><em>This guide provides a complete workflow for developing Ansible collections at Padmini Systems. Follow these steps to ensure consistency and quality in your automation projects.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="mailto:contact@kubejet.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M536.4-26.3c9.8-3.5 20.6-1 28 6.3s9.8 18.2 6.3 28l-178 496.9c-5 13.9-18.1 23.1-32.8 23.1-14.2 0-27-8.6-32.3-21.7l-64.2-158c-4.5-11-2.5-23.6 5.2-32.6l94.5-112.4c5.1-6.1 4.7-15-.9-20.6s-14.6-6-20.6-.9l-112.4 94.3c-9.1 7.6-21.6 9.6-32.6 5.2L38.1 216.8c-13.1-5.3-21.7-18.1-21.7-32.3 0-14.7 9.2-27.8 23.1-32.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

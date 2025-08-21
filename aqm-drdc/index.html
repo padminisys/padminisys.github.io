@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SymmetricDS Replication Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+      }
+      .architecture-arrow {
+        position: relative;
+        width: 100%;
+        height: 2px;
+        background-color: #94a3b8;
+      }
+      .architecture-arrow::after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: -4px;
+        border: solid #94a3b8;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 4px;
+        transform: rotate(-45deg);
+      }
+      .architecture-arrow.vertical {
+        width: 2px;
+        height: 100%;
+      }
+      .architecture-arrow.vertical::after {
+        right: -4px;
+        top: auto;
+        bottom: -1px;
+        transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body class="text-slate-700">
+    <div class="container mx-auto p-4 md:p-8">
+      <header class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-slate-800">
+          SymmetricDS Replication Design document
+        </h1>
+        <p class="text-lg text-slate-500 mt-2">
+          Implementation plan for two-way replication between `aqm-dc` and
+          `aqm-dr`.
+        </p>
+      </header>
+
+      <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-1 space-y-8">
+          <section class="bg-white p-6 rounded-xl shadow-md">
+            <h2
+              class="text-2xl font-semibold mb-4 text-slate-800 border-b pb-2"
+            >
+              System Architecture
+            </h2>
+            <div class="space-y-4 text-center">
+              <div class="flex justify-between items-start space-x-4">
+                <div
+                  class="flex-1 p-3 border border-slate-200 rounded-lg bg-slate-50"
+                >
+                  <h3 class="font-bold">aqm-dc (Primary)</h3>
+                  <p class="text-sm text-slate-500">Data Center</p>
+                </div>
+                <div
+                  class="flex-1 p-3 border border-slate-200 rounded-lg bg-slate-50"
+                >
+                  <h3 class="font-bold">aqm-dr (Standby)</h3>
+                  <p class="text-sm text-slate-500">Disaster Recovery</p>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-center px-8">
+                <div class="flex-1">
+                  <div class="architecture-arrow"></div>
+                </div>
+                <div class="text-xs text-slate-500 px-2">HTTP/S Sync</div>
+                <div class="flex-1">
+                  <div
+                    class="architecture-arrow"
+                    style="transform: rotate(180deg)"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center space-x-4">
+                <div
+                  id="status-dc-engine"
+                  class="flex-1 p-3 border border-slate-200 rounded-lg bg-white relative"
+                >
+                  <span
+                    class="absolute top-2 right-2 h-3 w-3 rounded-full bg-gray-400"
+                    title="Offline"
+                  ></span>
+                  <h3 class="font-semibold">SymmetricDS Engine 1</h3>
+                </div>
+
+                <div
+                  id="status-dr-engine"
+                  class="flex-1 p-3 border border-slate-200 rounded-lg bg-white relative"
+                >
+                  <span
+                    class="absolute top-2 right-2 h-3 w-3 rounded-full bg-gray-400"
+                    title="Offline"
+                  ></span>
+                  <h3 class="font-semibold">SymmetricDS Engine 2</h3>
+                </div>
+              </div>
+
+              <div class="flex justify-around items-center h-12">
+                <div class="h-full flex flex-col items-center">
+                  <div class="architecture-arrow vertical flex-grow"></div>
+                  <span class="text-xs text-slate-500 py-1">JDBC</span>
+                </div>
+                <div class="h-full flex flex-col items-center">
+                  <div class="architecture-arrow vertical flex-grow"></div>
+                  <span class="text-xs text-slate-500 py-1">JDBC</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-start space-x-4">
+                <div
+                  id="status-dc-db"
+                  class="flex-1 p-3 border-2 border-green-400 rounded-lg bg-green-50 relative"
+                >
+                  <span
+                    class="absolute top-2 right-2 h-3 w-3 rounded-full bg-green-500"
+                    title="Online"
+                  ></span>
+                  <h3 class="font-bold">Podman: oracle-xe</h3>
+                  <p class="text-sm text-slate-600">amol / aqm schema</p>
+                </div>
+
+                <div
+                  id="status-dr-db"
+                  class="flex-1 p-3 border-2 border-yellow-400 rounded-lg bg-yellow-50 relative"
+                >
+                  <span
+                    class="absolute top-2 right-2 h-3 w-3 rounded-full bg-yellow-500"
+                    title="Awaiting Setup"
+                  ></span>
+                  <h3 class="font-bold">Podman: oracle-xe</h3>
+                  <p class="text-sm text-slate-600">amol / aqm schema</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="bg-white p-6 rounded-xl shadow-md">
+            <h2
+              class="text-2xl font-semibold mb-4 text-slate-800 border-b pb-2"
+            >
+              Replicated Tables
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-slate-600">
+              <li>PERSON</li>
+              <li>CONTACTS</li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="lg:col-span-2">
+          <section class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-2xl font-semibold mb-4 text-slate-800">
+              Implementation Plan
+            </h2>
+            <div id="implementation-plan" class="space-y-4">
+              <div
+                id="step-1"
+                class="border-l-4 border-slate-300 p-4 rounded-r-lg bg-slate-50 transition"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold text-slate-700">
+                    Phase 1: Prerequisites & DR Database Preparation
+                  </h3>
+                </div>
+                <div class="mt-4 text-slate-600 prose prose-sm max-w-none">
+                  <ol class="list-decimal pl-5 space-y-2">
+                    <li>
+                      <strong>Prepare DR Database:</strong> On the
+                      <code>aqm-dr</code> site, run <strong>Part 1</strong> of
+                      the SQL script (<code>oracle_user_setup_script</code>).
+                      This creates the <code>amol</code> user with necessary
+                      privileges. Do not create tables manually.
+                    </li>
+                    <li>
+                      <strong>Download Software:</strong> Download the
+                      SymmetricDS software ZIP and the Oracle JDBC driver
+                      (<code>ojdbc.jar</code>) onto both <code>aqm-dc</code> and
+                      <code>aqm-dr</code> machines.
+                    </li>
+                    <li>
+                      <strong>Network Connectivity:</strong> Ensure a firewall
+                      rule allows traffic between the two hosts on the
+                      SymmetricDS port (e.g., TCP 31415).
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <div
+                id="step-2"
+                class="border-l-4 border-slate-300 p-4 rounded-r-lg bg-slate-50 transition"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold text-slate-700">
+                    Phase 2: Configure & Start Primary (DC) Engine
+                  </h3>
+                </div>
+                <div class="mt-4 text-slate-600 prose prose-sm max-w-none">
+                  <ol class="list-decimal pl-5 space-y-2">
+                    <li>
+                      Unzip SymmetricDS on <code>aqm-dc</code>. Place the
+                      <code>ojdbc.jar</code> file into the
+                      <code>lib/</code> subdirectory.
+                    </li>
+                    <li>
+                      Create and configure the
+                      <code>engines/aqm-dc-001.properties</code> file.
+                    </li>
+                    <li>
+                      Set essential properties:
+                      <code>engine.name=aqm-dc-001</code>, database connection
+                      details, and <code>sync.url</code> for this engine. This
+                      engine acts as the registration server.
+                    </li>
+                    <li>
+                      Start the engine using the command:
+                      <code>bin/sym --engine aqm-dc-001 --port 31415</code>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <div
+                id="step-3"
+                class="border-l-4 border-slate-300 p-4 rounded-r-lg bg-slate-50 transition"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold text-slate-700">
+                    Phase 3: Configure & Start Secondary (DR) Engine
+                  </h3>
+                </div>
+                <div class="mt-4 text-slate-600 prose prose-sm max-w-none">
+                  <ol class="list-decimal pl-5 space-y-2">
+                    <li>
+                      Perform the same software setup on
+                      <code>aqm-dr</code> (unzip, place JDBC driver).
+                    </li>
+                    <li>
+                      Create and configure the
+                      <code>engines/aqm-dr-002.properties</code> file.
+                    </li>
+                    <li>
+                      Set properties: <code>engine.name=aqm-dr-002</code>, local
+                      database connection, and crucially,
+                      <code
+                        >registration.url=http://[aqm-dc-ip]:31415/sync/aqm-dc-001</code
+                      >.
+                    </li>
+                    <li>
+                      Start the engine on <code>aqm-dr</code>. It should
+                      automatically register with the primary engine.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <div
+                id="step-4"
+                class="border-l-4 border-slate-300 p-4 rounded-r-lg bg-slate-50 transition"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold text-slate-700">
+                    Phase 4: Define Replication Logic
+                  </h3>
+                </div>
+                <div class="mt-4 text-slate-600 prose prose-sm max-w-none">
+                  <ol class="list-decimal pl-5 space-y-2">
+                    <li>
+                      Connect to the <code>aqm-dc</code> database as the
+                      <code>amol</code> user.
+                    </li>
+                    <li>
+                      Insert rows into SymmetricDS's configuration tables
+                      (<code>SYM_TRIGGER</code>, <code>SYM_ROUTER</code>,
+                      <code>SYM_TRIGGER_ROUTER</code>, etc.) to define the
+                      replication.
+                    </li>
+                    <li>
+                      This configuration will tell SymmetricDS to create
+                      triggers for <code>PERSON</code> and
+                      <code>CONTACTS</code> and route their data changes between
+                      the two nodes. This is done via SQL.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <div
+                id="step-5"
+                class="border-l-4 border-slate-300 p-4 rounded-r-lg bg-slate-50 transition"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold text-slate-700">
+                    Phase 5: Perform Initial Load & Go Live
+                  </h3>
+                </div>
+                <div class="mt-4 text-slate-600 prose prose-sm max-w-none">
+                  <ol class="list-decimal pl-5 space-y-2">
+                    <li>
+                      <strong>Enable Automatic Table Creation:</strong> Set the
+                      parameter <code>initial.load.create.first=true</code> for
+                      the node group. This ensures the table DDL is sent before
+                      the data.
+                    </li>
+                    <li>
+                      <strong>Trigger Initial Load:</strong> Use the
+                      <code>symadmin</code> command-line tool to send an initial
+                      load command to the <code>aqm-dr-002</code> node. Example:
+                      <code
+                        >bin/symadmin --engine aqm-dc-001 reload-node 002</code
+                      >
+                    </li>
+                    <li>
+                      <strong>Automated Synchronization:</strong> SymmetricDS
+                      will automatically create the <code>PERSON</code> and
+                      <code>CONTACTS</code> tables on the DR database and then
+                      populate them with all data from the DC database.
+                    </li>
+                    <li>
+                      <strong>Go Live:</strong> Once the load is complete,
+                      two-way replication is active. Verify by making a change
+                      on one database and seeing it appear on the other.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
